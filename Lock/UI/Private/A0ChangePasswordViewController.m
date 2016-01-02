@@ -87,9 +87,20 @@
     [theme configureTextField:self.repeatPasswordField.textField];
     
     self.userField.textField.text = self.defaultEmail;
-    [self.userField setFieldPlaceholderText:A0LocalizedString(@"Email")];
+    self.userField.type = self.forceUsername ? A0CredentialFieldViewUsername : A0CredentialFieldViewEmail;
+    [self.userField.textField addTarget:self action:@selector(goToPasswordField:) forControlEvents:UIControlEventEditingDidEndOnExit];
+    self.userField.returnKeyType = UIReturnKeyNext;
+
+    self.passwordField.type = A0CredentialFieldViewPassword;
     [self.passwordField setFieldPlaceholderText:A0LocalizedString(@"New Password")];
+    [self.passwordField.textField addTarget:self action:@selector(goToRepeatPasswordField:) forControlEvents:UIControlEventEditingDidEndOnExit];
+    self.passwordField.returnKeyType = UIReturnKeyNext;
+
+    self.repeatPasswordField.type = A0CredentialFieldViewPassword;
     [self.repeatPasswordField setFieldPlaceholderText:A0LocalizedString(@"Confirm New Password")];
+    [self.repeatPasswordField.textField addTarget:self action:@selector(recover:) forControlEvents:UIControlEventEditingDidEndOnExit];
+    self.repeatPasswordField.returnKeyType = UIReturnKeyGo;
+
     [self.recoverButton setTitle:A0LocalizedString(@"SEND") forState:UIControlStateNormal];
     self.messageLabel.text = A0LocalizedString(@"Please enter your email and the new password. We will send you an email to confirm the password change.");
     [self.passwordField.passwordManagerButton addTarget:self action:@selector(changeLoginInfo:) forControlEvents:UIControlEventTouchUpInside];
