@@ -90,38 +90,37 @@ AUTH0_DYNAMIC_LOGGER_METHODS
     [super viewDidLoad];
 
     A0Theme *theme = [A0Theme sharedInstance];
-    [theme configurePrimaryButton:self.accessButton];
     [theme configureSecondaryButton:self.signUpButton];
     [theme configureSecondaryButton:self.forgotPasswordButton];
 
-    BOOL requiresUsername = [self.defaultConnection[A0ConnectionRequiresUsername] boolValue];
-    [self.userField.textField addTarget:self action:@selector(matchDomainInTextField:) forControlEvents:UIControlEventEditingChanged];
-    self.singleSignOnIcon.image = [self.singleSignOnIcon.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    if (self.defaultConnection) {
-        self.parameters[A0ParameterConnection] = self.defaultConnection.name;
-    }
-    if (requiresUsername) {
-        self.userField.type = A0CredentialFieldViewEmailOrUsername;
-    } else {
-        self.userField.type = self.forceUsername ? A0CredentialFieldViewUsername : A0CredentialFieldViewEmail;
-    }
-    self.userField.textField.text = self.defaultUsername;
-    [self.userField.textField addTarget:self action:@selector(goToPasswordField:) forControlEvents:UIControlEventEditingDidEndOnExit];
-
-    self.passwordField.type = A0CredentialFieldViewPassword;
-    [self.passwordField.textField addTarget:self action:@selector(access:) forControlEvents:UIControlEventEditingDidEndOnExit];
-    self.passwordField.returnKeyType = UIReturnKeyGo;
-    [self.accessButton setTitle:A0LocalizedString(@"ACCESS") forState:UIControlStateNormal];
-    [self.passwordField.passwordManagerButton addTarget:self action:@selector(fillLogin:) forControlEvents:UIControlEventTouchUpInside];
-    NSMutableArray *validators = [@[
-                                    [[A0PasswordValidator alloc] initWithField:self.passwordField.textField],
-                                    ] mutableCopy];
-    if (self.forceUsername || requiresUsername) {
-        [validators addObject:[[A0UsernameValidator alloc] initWithField:self.userField.textField]];
-    } else {
-        [validators addObject:[[A0EmailValidator alloc] initWithField:self.userField.textField]];
-    }
-    self.validator = [[A0CredentialsValidator alloc] initWithValidators:validators];
+//    BOOL requiresUsername = [self.defaultConnection[A0ConnectionRequiresUsername] boolValue];
+//    [self.userField.textField addTarget:self action:@selector(matchDomainInTextField:) forControlEvents:UIControlEventEditingChanged];
+//    self.singleSignOnIcon.image = [self.singleSignOnIcon.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+//    if (self.defaultConnection) {
+//        self.parameters[A0ParameterConnection] = self.defaultConnection.name;
+//    }
+//    if (requiresUsername) {
+//        self.userField.type = A0CredentialFieldViewEmailOrUsername;
+//    } else {
+//        self.userField.type = self.forceUsername ? A0CredentialFieldViewUsername : A0CredentialFieldViewEmail;
+//    }
+//    self.userField.textField.text = self.defaultUsername;
+//    [self.userField.textField addTarget:self action:@selector(goToPasswordField:) forControlEvents:UIControlEventEditingDidEndOnExit];
+//
+//    self.passwordField.type = A0CredentialFieldViewPassword;
+//    [self.passwordField.textField addTarget:self action:@selector(access:) forControlEvents:UIControlEventEditingDidEndOnExit];
+//    self.passwordField.returnKeyType = UIReturnKeyGo;
+//    [self.accessButton setTitle:A0LocalizedString(@"ACCESS") forState:UIControlStateNormal];
+//    [self.passwordField.passwordManagerButton addTarget:self action:@selector(fillLogin:) forControlEvents:UIControlEventTouchUpInside];
+//    NSMutableArray *validators = [@[
+//                                    [[A0PasswordValidator alloc] initWithField:self.passwordField.textField],
+//                                    ] mutableCopy];
+//    if (self.forceUsername || requiresUsername) {
+//        [validators addObject:[[A0UsernameValidator alloc] initWithField:self.userField.textField]];
+//    } else {
+//        [validators addObject:[[A0EmailValidator alloc] initWithField:self.userField.textField]];
+//    }
+//    self.validator = [[A0CredentialsValidator alloc] initWithValidators:validators];
 }
 
 - (void)dealloc {
